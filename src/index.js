@@ -23,7 +23,14 @@ function checksExistsUserAccount(request, response, next) {
 }
 
 function checksCreateTodosUserAvailability(request, response, next) {
-  // Complete aqui
+  const { user } = request;
+  const { pro, todos } = user;
+
+  if(!pro && todos.length > 9) {
+    return response.status(403).json({ error: "User already have ten todos! time to go PRO"});
+  }
+
+  return next();
 }
 
 function checksTodoExists(request, response, next) {
